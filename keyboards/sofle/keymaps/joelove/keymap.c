@@ -72,84 +72,56 @@ static void print_layer_name(void) {
     }
 }
 
-static void print_primary_oled(void) {
-    oled_clear();
-    print_doge_logo();
-    print_layer_name();
-}
-
 static void print_wpm(void) {
     uint8_t wpm = get_current_wpm();
 
     oled_write_P(PSTR("  "), false);
     oled_write_ln(get_u8_str(wpm, '0'), false);
-
     oled_write_P(PSTR("  "), false);
     oled_write_P(PSTR("WPM"), false);
+}
+
+static void print_mod_status(const char * label, bool on) {
+    oled_write_P(PSTR("\n"), false);
+    oled_write_P(PSTR("  "), false);
+    oled_write_P(label, on);
 }
 
 static void print_mods(void) {
     uint8_t mods = get_mods();
     uint8_t oneshot_mods = get_oneshot_mods();
-
-    oled_write_P(PSTR("\n"), false);
-    oled_write_P(PSTR("  "), false);
-    oled_write_P(PSTR("Sft"), mods & MOD_MASK_SHIFT || oneshot_mods & MOD_MASK_SHIFT);
-
-    oled_write_P(PSTR("\n"), false);
-    oled_write_P(PSTR("  "), false);
-    oled_write_P(PSTR("Ctl"), mods & MOD_MASK_CTRL || oneshot_mods & MOD_MASK_CTRL);
-
-    oled_write_P(PSTR("\n"), false);
-    oled_write_P(PSTR("  "), false);
-    oled_write_P(PSTR("Alt"), mods & MOD_MASK_ALT || oneshot_mods & MOD_MASK_ALT);
-
-    oled_write_P(PSTR("\n"), false);
-    oled_write_P(PSTR("  "), false);
-    oled_write_P(PSTR("Cmd"), mods & MOD_MASK_GUI || oneshot_mods & MOD_MASK_GUI);
+    
+    oled_write_ln_P(PSTR("\n"), false);
+    print_mod_status(PSTR("Sft"), mods & MOD_MASK_SHIFT || oneshot_mods & MOD_MASK_SHIFT);
+    print_mod_status(PSTR("Ctl"), mods & MOD_MASK_CTRL || oneshot_mods & MOD_MASK_CTRL);
+    print_mod_status(PSTR("Alt"), mods & MOD_MASK_ALT || oneshot_mods & MOD_MASK_ALT);
+    print_mod_status(PSTR("Cmd"), mods & MOD_MASK_GUI || oneshot_mods & MOD_MASK_GUI);
 }
 
 static void print_divider(void) {
-    oled_write_pixel(10, 34, true);
-    oled_write_pixel(11, 34, true);
-    oled_write_pixel(12, 34, true);
-    oled_write_pixel(13, 34, true);
-    oled_write_pixel(14, 34, true);
-    oled_write_pixel(15, 34, true);
-    oled_write_pixel(16, 34, true);
-    oled_write_pixel(17, 34, true);
-    oled_write_pixel(18, 34, true);
-    oled_write_pixel(19, 34, true);
-    oled_write_pixel(20, 34, true);
-    oled_write_pixel(21, 34, true);
-    oled_write_pixel(22, 34, true);
-    oled_write_pixel(23, 34, true);
-    oled_write_pixel(24, 34, true);
-    oled_write_pixel(25, 34, true);
-    oled_write_pixel(26, 34, true);
-    oled_write_pixel(27, 34, true);
-    oled_write_pixel(28, 34, true);
-    oled_write_pixel(29, 34, true);
-    oled_write_pixel(30, 34, true);
-    oled_write_pixel(31, 34, true);
-    oled_write_pixel(32, 34, true);
+    for (uint8_t i = 10; i <= 32; ++i) {
+        oled_write_pixel(i, 34, true);
+    }
 }
 
-static void print_secondary_oled(void) {
+static void print_primary_oled(void) {
     oled_clear();
     print_wpm();
-
-    oled_write_ln_P(PSTR("\n"), false);
-
     print_mods();
     print_divider();
 }
 
+static void print_secondary_oled(void) {
+    oled_clear();
+    print_doge_logo();
+    print_layer_name();
+}
+
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
     if (is_keyboard_master()) {
-        return OLED_ROTATION_180;
+        return OLED_ROTATION_270;
     }
-    return OLED_ROTATION_270;
+    return OLED_ROTATION_180;
 }
 
 bool oled_task_user(void) {
