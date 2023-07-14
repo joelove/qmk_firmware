@@ -11,9 +11,9 @@ enum sofle_layers {
 /*
 
 0. BASE
- ␛ q w f p b          j l u y ; [
+ ⇥ q w f p b          j l u y ; [
  ⌫ a r s t g          m n e i o ⏎
- ⇥ z x c d v          k h , . / '
+ ␛ z x c d v          k h , . / '
         ➃ ➂ ⇧       ␣ ➀ ➁
 
 1. SYMBOLS
@@ -45,9 +45,9 @@ enum sofle_layers {
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_ESC, KC_Q, KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_LBRC,
+        KC_TAB, KC_Q, KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_LBRC,
         KC_BSPC, KC_A, KC_R, KC_S, KC_T, KC_G, KC_M, KC_N, KC_E, KC_I, KC_O, KC_ENT,
-        KC_TAB, KC_Z, KC_X, KC_C, KC_D, KC_V, LGUI(LCTL(KC_Q)), KC_F10, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_QUOT,
+        KC_ESC, KC_Z, KC_X, KC_C, KC_D, KC_V, LGUI(LCTL(KC_Q)), KC_F10, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_QUOT,
         KC_NO, KC_NO, MO(4), MO(3), KC_LSFT, KC_SPC, MO(1), MO(2), KC_NO, KC_NO
     ),
     [_SYMBOLS] = LAYOUT(
