@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "os_detection.h"
 
 enum sofle_layers {
     _BASE,
@@ -18,7 +19,7 @@ enum sofle_layers {
 
 1. SYMBOLS
  £ - = > ? \          ^ { } . + *
- ⌫ _ ; : , !          ' ( ) " | ␣
+ ⌫ _ ; : , !          ' ( ) " | ⏎
  § @ < $ ` ~          % [ ] / # &
         ␀ ␀ ␀        ␀ ␀ ␀
 
@@ -85,12 +86,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 static const char PROGMEM doge_logo_1[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0x1c, 0x02, 0x05, 0x02, 0x24, 0x04, 0x04, 0x02, 0xa9, 0x1e, 0xe0, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
+
 static const char PROGMEM doge_logo_2[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0xe0, 0x90, 0x08, 0x18, 0x60, 0x10, 0x08, 0x04, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0x0e, 0x82, 0x7c, 0x03, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
+
 static const char PROGMEM doge_logo_3[] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01, 0x02, 0x04, 0x0c, 0x10, 0x10, 0x20, 0x20, 0x20, 0x28, 0x3e, 0x1c, 0x20, 0x20, 0x3e, 0x0f, 0x11, 0x1f, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
 };
+
 
 static void print_doge_logo(void) {
     oled_set_cursor(0, 0);
@@ -150,10 +154,16 @@ static void print_mods(void) {
     print_mod_status(PSTR("Sft"), mods & MOD_MASK_SHIFT || oneshot_mods & MOD_MASK_SHIFT);
     print_mod_status(PSTR("Ctl"), mods & MOD_MASK_CTRL || oneshot_mods & MOD_MASK_CTRL);
     print_mod_status(PSTR("Alt"), mods & MOD_MASK_ALT || oneshot_mods & MOD_MASK_ALT);
-    print_mod_status(PSTR("Cmd"), mods & MOD_MASK_GUI || oneshot_mods & MOD_MASK_GUI);
+
+    if (detected_host_os() == OS_WINDOWS) {
+        print_mod_status(PSTR("Win"), mods & MOD_MASK_GUI || oneshot_mods & MOD_MASK_GUI);
+    } else {
+        print_mod_status(PSTR("Cmd"), mods & MOD_MASK_GUI || oneshot_mods & MOD_MASK_GUI);
+
+    }
 }
 
-static void print_divider(void) {
+static void print_dividers(void) {
     for (uint8_t i = 10; i <= 32; ++i) {
         oled_write_pixel(i, 34, true);
     }
@@ -163,7 +173,7 @@ static void print_primary_oled(void) {
     oled_clear();
     print_wpm();
     print_mods();
-    print_divider();
+    print_dividers();
 }
 
 static void print_secondary_oled(void) {
@@ -212,27 +222,36 @@ static bool clear_active_mods(void) {
     return mods_cleared;
 }
 
-static void set_default_locks(void) {
+static bool reset_active_locks(void) {
+    bool locks_cleared = false;
+
     uint8_t usb_leds = host_keyboard_leds();
 
     if (usb_leds & (1<<USB_LED_CAPS_LOCK)) {
         register_code(KC_CAPS_LOCK);
         unregister_code(KC_CAPS_LOCK);
+        locks_cleared = true;
     }
 
-    if (~usb_leds & (1<<USB_LED_NUM_LOCK)) {
-        register_code(KC_NUM_LOCK);
-        unregister_code(KC_NUM_LOCK);
+    os_variant_t operating_system = detected_host_os();
+
+    if (operating_system == OS_WINDOWS) {
+        if (~usb_leds & (1<<USB_LED_NUM_LOCK)) {
+            register_code(KC_NUM_LOCK);
+            unregister_code(KC_NUM_LOCK);
+            locks_cleared = true;
+        }
     }
+
+    return locks_cleared;
 }
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     if (keycode == KC_ESC && record->event.pressed) {
         bool mods_cleared = clear_active_mods();
+        bool locks_reset = reset_active_locks();
 
-        set_default_locks();
-
-        return !mods_cleared;
+        return !mods_cleared && !locks_reset;
     }
 
     return true;
