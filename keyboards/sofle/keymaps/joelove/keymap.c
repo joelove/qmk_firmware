@@ -12,72 +12,72 @@ enum sofle_layers {
 /*
 
 0. BASE
- ⇥ q w f p b          j l u y ; [
- ⌫ a r s t g          m n e i o ⏎
- ␛ z x c d v          k h , . / '
+    q w f p b          j l u y ;
+  ⌫ a r s t g          m n e i o ⏎
+    z x c d v          k h , . /
         ➃ ➂ ⇧       ␣ ➀ ➁
 
 1. SYMBOLS
- £ - = > ? \          ^ { } . + *
- ⌫ _ ; : , !          ' ( ) " | ⏎
- § @ < $ ` ~          % [ ] / # &
-        ␀ ␀ ␀        ␀ ␀ ␀
+    ~ @ £ $ [          ] % ^ & *
+  ` | + ' " (          ) : ; ! ? =
+    \ < > _ {          } - , . /
+         — – #        ␀ ␀ ␀
 
 2. NAVIGATION
- ␀ ↞ ↡ ↟ ↠ ␀          ␀ ↥ ↧ ⇞ ⇟ ␀
- ␀ ⇺ ⇷ ⇸ ⇻ ␀          ␀ ⬅ ⬇ ⬆ ➡ ␀
- ␀ ⇠ ⇣ ⇡ ⇢ ␀          ␀ ⇱ ⇲ ⍉ ⏏ ␀
+    ↞ ↡ ↟ ↠ ␀          ␀ ↥ ↧ ⇞ ⇟
+  ⇤ ⇺ ⇷ ⇸ ⇻ ␀          ␀ ⬅ ⬇ ⬆ ➡ ⇥
+    ⇠ ⇣ ⇡ ⇢ ␀          ␀ ⇱ ⇲ ⍉ ⏏
         ␀ ␀ ⇧        ␀ ␀ ␀
 
-3. APP_CONTROL
- ⟲ ⅰ ⅱ ⅲ ⅳ ⤭          ␀ ␀ ␀ ␀ ␀ ␀
- ☓ ⤎  ⤏ ⤌  ⤍ ⤢          ␀ ␀ ␀ ␀ ␀ ␀
- ⟳ ⤎  ⤏   ↜  ↝    ↯          ␀ ␀ ␀ ␀ ␀ ␀
-        ␀ ␀ ␀        ␀ ␀ ␀
-
-4. MODS_NUM_PAD
- ␀ ␀ ␀ ␀ ␀ ␀          / 7 8 9 - ␀
- ␀ ⇧   ⌃   ⌥   ⌘ ⌁          * 4 5 6 + ␀
- ␀ ␀ ␀ ␀ ␀ ␀          = 1 2 3 ⇥ ␀
+3. MODS_NUM_PAD
+    ␀ ␀ ␀ ␀ ␀          / 7 8 9 -
+  ␀ ⇧   ⌃   ⌥   ⌘ ⌁          * 4 5 6 + ⏎
+    ␀ ␀ ␀ ␀ ␀          = 1 2 3 ⇥
         ␀ ␀ ␀        ␣ 0 .
+
+4. APP_CONTROL
+    ⅰ ⅱ ⅲ ⅳ ⤭          ␀ ␀ ␀ ␀ ␀
+  ☓ ⤎  ⤏ ⤌  ⤍ ⤢          ␀ ␀ ␀ ␀ ␀ ␀
+    ⤎  ⤏   ↜  ↝    ↯          ␀ ␀ ␀ ␀ ␀
+         ␀ ␀ ⚲        ␀ ␀ ␀
 
 */
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_BASE] = LAYOUT(
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_TAB, KC_Q, KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_LBRC,
+        KC_NO, KC_Q, KC_W, KC_F, KC_P, KC_B, KC_J, KC_L, KC_U, KC_Y, KC_SCLN, KC_NO,
         KC_BSPC, KC_A, KC_R, KC_S, KC_T, KC_G, KC_M, KC_N, KC_E, KC_I, KC_O, KC_ENT,
-        KC_ESC, KC_Z, KC_X, KC_C, KC_D, KC_V, LGUI(LCTL(KC_Q)), KC_F10, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_QUOT,
-        KC_NO, KC_NO, MO(4), MO(3), KC_LSFT, KC_SPC, MO(1), MO(2), KC_NO, KC_NO
+        KC_NO, KC_Z, KC_X, KC_C, KC_D, KC_V, LGUI(LCTL(KC_Q)), KC_F10, KC_K, KC_H, KC_COMM, KC_DOT, KC_SLSH, KC_NO,
+        KC_NO, KC_NO, MO(_APP_CONTROL), MO(_MODS_NUM_PAD), KC_LSFT, KC_SPC, MO(_SYMBOLS), MO(_NAVIGATION), KC_NO, KC_NO
     ),
     [_SYMBOLS] = LAYOUT(
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        RSFT(KC_HASH), KC_MINS, KC_EQL, RSFT(KC_GT), RSFT(KC_QUES), KC_BSLS, RSFT(KC_CIRC), RSFT(KC_LCBR), RSFT(KC_RCBR), KC_DOT, RSFT(KC_PLUS), RSFT(KC_ASTR),
-        KC_BSPC, RSFT(KC_UNDS), KC_SCLN, RSFT(KC_COLN), KC_COMM, RSFT(KC_EXLM), KC_QUOT, RSFT(KC_LPRN), RSFT(KC_RPRN), RSFT(KC_DQUO), RSFT(KC_PIPE), KC_ENT,
-        KC_NUBS, RSFT(KC_AT), RSFT(KC_LT), RSFT(KC_DLR), KC_GRV, RSFT(KC_TILD), KC_NO, KC_NO, RSFT(KC_PERC), KC_LBRC, KC_RBRC, KC_SLSH, RALT(KC_3), RSFT(KC_AMPR),
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
+        KC_NO, KC_TILDE, KC_AT, KC_HASH, KC_DLR, KC_LBRC, KC_RBRC, KC_PERC, KC_CIRC, KC_AMPR, KC_ASTR, KC_NO,
+        KC_GRV, KC_PIPE, KC_PLUS, KC_QUOT, KC_DQUO, KC_LPRN, KC_RPRN, KC_COLN, KC_SCLN, KC_EXLM, KC_QUES, KC_EQL,
+        KC_NO, KC_BSLS, KC_LT, KC_GT, KC_UNDS, KC_LCBR, KC_NO, KC_NO, KC_RCBR, KC_MINS, KC_COMM, KC_DOT, KC_SLSH, KC_NO,
+        KC_NO, KC_NO, LSA(KC_MINS), LALT(KC_MINS), LALT(KC_3), KC_NO, KC_TRNS, KC_NO, KC_NO, KC_NO
     ),
     [_NAVIGATION] = LAYOUT(
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_NO, RGUI(KC_LEFT), RGUI(KC_DOWN), RGUI(KC_UP), RGUI(KC_RGHT), KC_NO, KC_NO, KC_F1, KC_F2, KC_F11, KC_F12, KC_NO,
-        KC_NO, LGUI(KC_BSPC), LALT(KC_BSPC), LALT(KC_DEL), LCTL(KC_K), KC_NO, KC_NO, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_NO,
+        LSFT(KC_TAB), LGUI(KC_BSPC), LALT(KC_BSPC), LALT(KC_DEL), LCTL(KC_K), KC_NO, KC_NO, KC_LEFT, KC_DOWN, KC_UP, KC_RGHT, KC_TAB,
         KC_NO, RALT(KC_LEFT), RALT(KC_DOWN), RALT(KC_UP), RALT(KC_RGHT), KC_NO, KC_NO, KC_NO, KC_NO, RGUI(KC_MINS), RGUI(KC_EQL), RGUI(KC_0), KC_F10, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_LSFT, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
-    ),
-    [_APP_CONTROL] = LAYOUT(
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        LGUI(KC_Z), HYPR(KC_1), HYPR(KC_2), HYPR(KC_3), HYPR(KC_4), LGUI(KC_ENT), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        LCTL(KC_C), MEH(KC_GRV), MEH(KC_Z), LCAG(KC_X), LCAG(KC_C), LCAG(KC_SPC), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        LGUI(LSFT(KC_Z)), HYPR(KC_GRV), HYPR(KC_Z), LCA(KC_X), LCA(KC_C), LAG(KC_TAB), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, LGUI(KC_SPC), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_LSFT, KC_NO, KC_NO, KC_TRNS, KC_NO, KC_NO
     ),
     [_MODS_NUM_PAD] = LAYOUT(
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_PSLS, KC_P7, KC_P8, KC_P9, KC_PMNS, KC_NO,
-        KC_BSPC, OSM(MOD_LSFT), OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), OSM(MOD_HYPR), KC_PAST, KC_P4, KC_P5, KC_P6, KC_PPLS, KC_NO,
+        KC_BSPC, OSM(MOD_LSFT), OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), OSM(MOD_HYPR), KC_PAST, KC_P4, KC_P5, KC_P6, KC_PPLS, KC_ENT,
         KC_NO,  KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_PEQL, KC_P1, KC_P2, KC_P3, KC_TAB, KC_NO,
-        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_SPACE, KC_P0, KC_PDOT, KC_NO, KC_NO
+        KC_NO, KC_NO, KC_NO, KC_TRNS, KC_NO, KC_SPACE, KC_P0, KC_PDOT, KC_NO, KC_NO
+    ),
+    [_APP_CONTROL] = LAYOUT(
+        KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, HYPR(KC_1), HYPR(KC_2), HYPR(KC_3), HYPR(KC_4), LGUI(KC_ENT), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_ESC, MEH(KC_GRV), MEH(KC_Z), LCAG(KC_X), LCAG(KC_C), LCAG(KC_SPC), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, HYPR(KC_GRV), HYPR(KC_Z), LCA(KC_X), LCA(KC_C), LAG(KC_TAB), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_NO, KC_NO, KC_TRNS, KC_NO, LGUI(KC_SPC), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
     )
 };
 
@@ -118,11 +118,11 @@ static void print_layer_name(void) {
         case _NAVIGATION:
             oled_write_P(PSTR("Navigation"), false);
             break;
-        case _APP_CONTROL:
-            oled_write_P(PSTR("App Control"), false);
-            break;
         case _MODS_NUM_PAD:
             oled_write_P(PSTR("Mods & Num Pad"), false);
+            break;
+        case _APP_CONTROL:
+            oled_write_P(PSTR("App Control"), false);
             break;
         default:
             oled_write_P(PSTR("Unknown"), false);
@@ -170,16 +170,20 @@ static void print_dividers(void) {
 }
 
 static void print_primary_oled(void) {
-    oled_clear();
     print_wpm();
     print_mods();
     print_dividers();
 }
 
 static void print_secondary_oled(void) {
-    oled_clear();
     print_doge_logo();
     print_layer_name();
+}
+
+void keyboard_post_init_user(void) {
+  debug_enable=true;
+  debug_matrix=true;
+  debug_keyboard=true;
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -190,6 +194,8 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 bool oled_task_user(void) {
+    oled_clear();
+
     if (is_keyboard_master()) {
         print_primary_oled();
     } else {
