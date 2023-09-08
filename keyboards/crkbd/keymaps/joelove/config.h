@@ -10,8 +10,9 @@ for more options.
 #undef TAPPING_TERM
 #define TAPPING_TERM 200
 
-#define WPM_LAUNCH_CONTROL
-
 #define SPLIT_WPM_ENABLE
 #define SPLIT_MODS_ENABLE
 #define SPLIT_LAYER_STATE_ENABLE
+
+#define WPM_LAUNCH_CONTROL
+#define NO_USB_STARTUP_CHECK
