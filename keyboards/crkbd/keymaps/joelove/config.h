@@ -16,3 +16,7 @@ for more options.
 
 #define WPM_LAUNCH_CONTROL
 #define NO_USB_STARTUP_CHECK
+
+#define MOUSEKEY_INERTIA
+#define MOUSEKEY_DELAY 0
+#define MOUSEKEY_MAX_SPEED 48

@@ -36,9 +36,9 @@ enum crkbd_layers {
          ␀ ␀ ␀        ␣ 0 .
 
 4. APP_CONTROL
-    ⅰ ⅱ ⅲ ⅳ ⤭          ␀ ␀ ␀ ␀ ␀
-  ☓ ⤎  ⤏ ⤌  ⤍ ⤢          ␀ ␀ ␀ ␀ ␀ ␀
-    ⤎  ⤏   ↜  ↝    ↯          ␀ ␀ ␀ ␀ ␀
+    ⅰ ⅱ ⅲ ⅳ ⤭         ␀ ␀ ␀ ␀ ␀
+  ☓ ⤎  ⤏ ⤌  ⤍ ⤢       ␀ ␀ ␀ ␀ ␀ ␀
+    ⤎  ⤏   ↜  ↝    ↯  ␀ ␀ ␀ ␀ ␀
          ␀ ␀ ⚲        ␀ ␀ ␀
 
 */
@@ -70,9 +70,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
     [_APP_CONTROL] = LAYOUT_split_3x6_3(
         KC_NO, HYPR(KC_1), HYPR(KC_2), HYPR(KC_3), HYPR(KC_4), LGUI(KC_ENT), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_ESC, MEH(KC_GRV), MEH(KC_Z), LCAG(KC_X), LCAG(KC_C), LCAG(KC_SPC), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
+        KC_ESC, MEH(KC_GRV), MEH(KC_Z), LCAG(KC_X), LCAG(KC_C), LCAG(KC_SPC), KC_NO, KC_MS_LEFT, KC_MS_DOWN, KC_MS_UP, KC_MS_RIGHT, KC_MS_BTN2,
         KC_NO, HYPR(KC_GRV), HYPR(KC_Z), LCA(KC_X), LCA(KC_C), LAG(KC_TAB), KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
-        KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO
+        KC_TRNS, KC_NO, KC_NO, KC_MS_BTN1, KC_NO, KC_NO
     )
 };
 
