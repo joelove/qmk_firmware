@@ -11,6 +11,9 @@ for more options.
 #define TAPPING_TERM 200
 
 #define WPM_LAUNCH_CONTROL
+#define WPM_ESTIMATED_WORD_SIZE 6
+#define WPM_SAMPLE_SECONDS 2
+#define WPM_SAMPLE_PERIODS 10
 
 #define SPLIT_WPM_ENABLE
 #define SPLIT_MODS_ENABLE
