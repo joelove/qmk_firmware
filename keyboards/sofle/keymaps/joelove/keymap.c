@@ -165,6 +165,10 @@ static void print_primary_oled(void) {
     print_wpm();
     print_mods();
     print_dividers();
+
+    for (uint8_t i = 0; i < 4; i++) {
+        oled_write_ln_P(PSTR(""), false);
+    }
 }
 
 static void print_secondary_oled(void) {
