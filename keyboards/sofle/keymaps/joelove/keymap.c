@@ -68,7 +68,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [_MODS_NUM_PAD] = LAYOUT(
         KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO,
         KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_PSLS, KC_P7, KC_P8, KC_P9, KC_PMNS, KC_TRNS,
-        KC_TAB, KC_LSFT, OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), LGUI(KC_SPC), KC_PAST, KC_P4, KC_P5, KC_P6, KC_PPLS, KC_PENT,
+        KC_TAB, OSM(KC_LSFT), OSM(MOD_LCTL), OSM(MOD_LALT), OSM(MOD_LGUI), LGUI(KC_SPC), KC_PAST, KC_P4, KC_P5, KC_P6, KC_PPLS, KC_PENT,
         KC_TRNS, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_NO, KC_PEQL, KC_P1, KC_P2, KC_P3, KC_TAB, KC_TRNS,
         KC_NO, KC_NO, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_P0, KC_PDOT, KC_NO, KC_NO
     ),
@@ -151,7 +151,6 @@ static void print_mods(void) {
         print_mod_status(PSTR("Win"), mods & MOD_MASK_GUI || oneshot_mods & MOD_MASK_GUI);
     } else {
         print_mod_status(PSTR("Cmd"), mods & MOD_MASK_GUI || oneshot_mods & MOD_MASK_GUI);
-
     }
 }
 
@@ -165,10 +164,6 @@ static void print_primary_oled(void) {
     print_wpm();
     print_mods();
     print_dividers();
-
-    for (uint8_t i = 0; i < 4; i++) {
-        oled_write_ln_P(PSTR(""), false);
-    }
 }
 
 static void print_secondary_oled(void) {
@@ -190,8 +185,6 @@ oled_rotation_t oled_init_user(oled_rotation_t rotation) {
 }
 
 bool oled_task_user(void) {
-    oled_clear();
-
     if (is_keyboard_master()) {
         print_primary_oled();
     } else {
