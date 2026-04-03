@@ -512,7 +512,7 @@ const USB_Descriptor_Configuration_t PROGMEM ConfigurationDescriptor = {
             .Type               = HID_DTYPE_HID
         },
         .HIDSpec                = VERSION_BCD(1, 1, 1),
-        .CountryCode            = 0x00,
+        .CountryCode            = 0x21,
         .TotalReportDescriptors = 1,
         .HIDReportType          = HID_DTYPE_Report,
         .HIDReportLength        = sizeof(KeyboardReport)
