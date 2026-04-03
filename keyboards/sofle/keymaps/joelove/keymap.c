@@ -37,8 +37,8 @@ enum sofle_layers {
 
 4. APP_CONTROL
     ⅰ ⤢ ⤡ ↹ ·          · · · · ·
-  × ⤎ ⤏ ⤌ ⤍ ·          · · · · · ·
-    ⤎ ⤏ ↜ ↝ ·          · · · · ·
+  × ⤎ ⤏ ⤌ ⤍ ·         · · · · · ·
+    ⤎ ⤏ ↜ ↝ ·         · · · · ·
         · · ·       · · ·
 
 */
@@ -155,7 +155,7 @@ static void print_mods(void) {
 }
 
 static void print_dividers(void) {
-    for (uint8_t i = 10; i <= 32; ++i) {
+    for (uint8_t i = 9; i <= 32; ++i) {
         oled_write_pixel(i, 34, true);
     }
 }
@@ -167,14 +167,9 @@ static void print_primary_oled(void) {
 }
 
 static void print_secondary_oled(void) {
+    oled_clear();
     print_doge_logo();
     print_layer_name();
-}
-
-void keyboard_post_init_user(void) {
-  debug_enable=true;
-  debug_matrix=true;
-  debug_keyboard=true;
 }
 
 oled_rotation_t oled_init_user(oled_rotation_t rotation) {
@@ -255,27 +250,16 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef ENCODER_ENABLE
 
 bool encoder_update_user(uint8_t index, bool clockwise) {
-    if (index == 0) {
-        if (clockwise) {
-            tap_code(KC_BRIU);
-        } else {
-            tap_code(KC_BRID);
-        }
-
-        return false;
+    switch (index) {
+        case 0:
+            tap_code(clockwise ? KC_BRIU : KC_BRID);
+            return false;
+        case 1:
+            tap_code(clockwise ? KC_VOLU : KC_VOLD);
+            return false;
+        default:
+            return true;
     }
-
-    if (index == 1) {
-        if (clockwise) {
-            tap_code(KC_VOLU);
-        } else {
-            tap_code(KC_VOLD);
-        }
-
-        return false;
-    }
-
-    return true;
 }
 
 #endif
